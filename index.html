@@ -1,1 +1,117 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project NOVA</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #080b14;
+      color: #edf2ff;
+      font-family: Arial, sans-serif;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+    .panel {
+      width: 100%;
+      max-width: 600px;
+      border: 1px solid #263957;
+      border-radius: 20px;
+      padding: 24px;
+      background: #101727;
+      box-shadow: 0 0 40px #18345a33;
+    }
+    .status {
+      color: #6ee7b7;
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+    h1 { font-size: 38px; margin-bottom: 6px; }
+    .subtitle { color: #9aa9c5; }
+    #chat {
+      min-height: 180px;
+      max-height: 300px;
+      overflow-y: auto;
+      margin: 24px 0;
+      padding: 14px;
+      border-radius: 12px;
+      background: #080d18;
+    }
+    .message {
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      background: #17243a;
+      overflow-wrap: anywhere;
+    }
+    .label { color: #6ee7b7; font-weight: bold; }
+    form { display: flex; gap: 8px; }
+    input {
+      min-width: 0;
+      flex: 1;
+      padding: 13px;
+      color: white;
+      background: #080d18;
+      border: 1px solid #34445e;
+      border-radius: 9px;
+    }
+    button {
+      padding: 12px 16px;
+      border: 0;
+      border-radius: 9px;
+      background: #6ee7b7;
+      color: #07120f;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    footer { color: #8492ac; font-size: 12px; margin-top: 18px; }
+  </style>
+</head>
+<body>
+  <main class="panel">
+    <div class="status">● SYSTEM ONLINE — PROTOTYPE</div>
+    <h1>NOVA</h1>
+    <p class="subtitle">Your personal AI assistant starts here.</p>
+    <section id="chat" aria-live="polite">
+      <div class="message">
+        <span class="label">NOVA:</span>
+        Systems initialized. What would you like to work on?
+      </div>
+    </section>
+    <form id="chatForm">
+      <input id="userInput" placeholder="Message NOVA..." autocomplete="off" required>
+      <button type="submit">Send</button>
+    </form>
+    <footer>PROJECT NOVA • Early prototype • AI connection not yet configured</footer>
+  </main>
+  <script>
+    const form = document.getElementById("chatForm");
+    const input = document.getElementById("userInput");
+    const chat = document.getElementById("chat");
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const message = input.value.trim();
+      if (!message) return;
+      addMessage("YOU", message);
+      addMessage("NOVA", "I received your message! My AI brain isn't connected yet. That's our next major step.");
+      input.value = "";
+      input.focus();
+    });
+    function addMessage(sender, text) {
+      const item = document.createElement("div");
+      item.className = "message";
+      const label = document.createElement("span");
+      label.className = "label";
+      label.textContent = sender + ": ";
+      item.appendChild(label);
+      item.appendChild(document.createTextNode(text));
+      chat.appendChild(item);
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+</body>
+</html>
